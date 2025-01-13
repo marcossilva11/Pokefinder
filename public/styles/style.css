@@ -1,0 +1,97 @@
+/* IMPORT FONT */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* VARIABLES COLOR */
+
+:root {
+  --bg-default: #f0f0d7;
+  --bg-header: #aab99a;
+  --bg-logo: #727d73;
+  --principal-font: "Raleway", serif;
+  /* 
+  cor de fundo de onde vai ficar a imagem do pokemon: #E8E8E8, #F6F6F6
+  */
+}
+
+/* GERAL CONFIGURE */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* SPECIFY STYLES */
+
+body {
+  font-family: var(--principal-font);
+  background-color: var(--bg-default);
+}
+
+header {
+  width: 100%;
+  background-color: var(--bg-header);
+}
+
+header > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  gap: 25px;
+}
+
+.logo {
+  color: var(--bg-logo);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.search-pokemon {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.search-bar {
+  background-color: var(--bg-logo);
+  padding: 10px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.322);
+}
+
+.input-pokemon {
+  flex-grow: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #d0ddd0;
+  font-weight: 800;
+}
+
+.input-pokemon::placeholder {
+  color: #969e96;
+  font-weight: 800;
+}
+
+.search-button {
+  background: none;
+  color: var(--bg-default);
+  border: none;
+  font-size: 1rem;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+/* Para telas pequenas */
+@media (max-width: 500px) {
+  header > div {
+    flex-direction: column;
+  }
+}
