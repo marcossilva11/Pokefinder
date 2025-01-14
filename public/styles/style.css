@@ -8,6 +8,7 @@
   --bg-default: #f0f0d7;
   --bg-header: #aab99a;
   --bg-logo: #727d73;
+  --bg-section: #d0ddd0;
   --principal-font: "Raleway", serif;
   /* 
   cor de fundo de onde vai ficar a imagem do pokemon: #E8E8E8, #F6F6F6
@@ -27,6 +28,7 @@
 body {
   font-family: var(--principal-font);
   background-color: var(--bg-default);
+  font-size: 16px;
 }
 
 header {
@@ -89,9 +91,213 @@ header > div {
   cursor: pointer;
 }
 
-/* Para telas pequenas */
 @media (max-width: 500px) {
   header > div {
     flex-direction: column;
   }
+}
+
+/* MAIN */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--bg-section);
+  padding: 15px;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.418);
+}
+
+/* TOP INFO */
+.top-info-base {
+  width: 100%;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  background-color: var(--bg-logo);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.photo-name-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.name-pokemon {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.img-pokemon {
+  width: 75%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.poke-character {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-logo);
+  padding: 15px;
+  width: 75%;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
+  color: #fff;
+}
+
+.character-box {
+  width: 100%;
+}
+
+.character-box > p {
+  text-align: start;
+  border-bottom: 1px solid var(--bg-section);
+}
+
+.character-name {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 768px) {
+  .top-info-base {
+    flex-direction: row;
+  }
+  .img-pokemon {
+    width: 250px;
+  }
+}
+
+/* MIDDLE INFO */
+.middle-info-base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.desc-pokemon {
+  padding: 7px;
+  border: 1px solid var(--bg-default);
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.548);
+  max-width: 750px;
+}
+
+.local-pokemon {
+  padding: 7px;
+  border: 1px solid var(--bg-default);
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.548);
+  max-width: 750px;
+}
+
+h3 {
+  margin-bottom: 3px;
+  color: var(--bg-logo);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.middle-info-base p {
+  font-size: 0.9rem;
+  line-height: 19px;
+}
+
+/* BOTTOM INFO */
+
+.bottom-info-base {
+  width: 100%;
+  max-width: 750px;
+  background-color: var(--bg-logo);
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.568);
+}
+
+.evolutions-pokemon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.evolutions-pokemon a {
+  text-decoration: none;
+}
+
+.evolutions-pokemon img {
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
+  padding: 15px;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.evolutions-pokemon img:hover {
+  transform: scale(1.1);
+}
+
+.evolutions-pokemon p {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bottom-info-base h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .evolutions-pokemon {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .evolutions-pokemon img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* FOOTER */
+
+footer {
+  background-color: var(--bg-header);
+  margin-top: 25px;
+  padding: 10px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--bg-logo);
 }
