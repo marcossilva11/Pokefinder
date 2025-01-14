@@ -27,7 +27,7 @@ Make sure you have the following installed:
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone [<repository-url>](https://github.com/marcossilva11/Pokefinder.git)
+   git clone https://github.com/marcossilva11/Pokefinder.git
    ```
 
 2. Navigate to the project directory:
