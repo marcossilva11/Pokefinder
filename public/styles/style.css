@@ -144,7 +144,7 @@ main {
 }
 
 .img-pokemon {
-  width: 75%;
+  width: 250px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
   padding: 15px;
   border-radius: 15px;

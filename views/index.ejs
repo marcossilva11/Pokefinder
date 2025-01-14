@@ -37,31 +37,46 @@
     <main>
       <article class="top-info-base">
         <section class="photo-name-pokemon">
-          <h1 class="name-pokemon">Suicune</h1>
+          <h1 class="name-pokemon"><%= pokemon.name %></h1>
           <img
-            src="images/pokemon-logo.png"
-            alt="Foto do pokémon"
+            src="<%= pokemon.sprites.front_default %>"
+            alt="Pokemon image"
             class="img-pokemon"
           />
         </section>
         <section class="poke-character">
           <div class="character-box">
-            <p><span class="character-name">Nº Pokédex:</span> 45</p>
+            <p>
+              <span class="character-name">Nº Pokédex:</span> <%=
+              pokemon.order %>
+            </p>
           </div>
           <div class="character-box">
-            <p><span class="character-name">Type:</span> Ice</p>
+            <p>
+              <span class="character-name"><%= typeLabel %>:</span> <%= type %>
+            </p>
           </div>
           <div class="character-box">
-            <p><span class="character-name">Weight:</span> 45</p>
+            <p>
+              <span class="character-name">Weight:</span> <%= pokemon.weight
+              %> hg
+            </p>
           </div>
           <div class="character-box">
-            <p><span class="character-name">Height:</span> 45</p>
+            <p>
+              <span class="character-name">Height:</span> <%= pokemon.height
+              %> dm
+            </p>
           </div>
           <div class="character-box">
-            <p><span class="character-name">Abilities:</span> None</p>
+            <p>
+              <span class="character-name">Abilities:</span> <%= abilities %>
+            </p>
           </div>
           <div class="character-box">
-            <p><span class="character-name">Gender:</span> Female</p>
+            <p>
+              <span class="character-name">Gender:</span> <%= genderDescription %>
+            </p>
           </div>
         </section>
       </article>
