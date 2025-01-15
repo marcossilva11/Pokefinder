@@ -47,8 +47,8 @@
         <section class="poke-character">
           <div class="character-box">
             <p>
-              <span class="character-name">Nº Pokédex:</span> <%=
-              pokemon.order %>
+              <span class="character-name">Nº Pokédex:</span> <%= pokemon.order
+              %>
             </p>
           </div>
           <div class="character-box">
@@ -58,14 +58,14 @@
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Weight:</span> <%= pokemon.weight
-              %> hg
+              <span class="character-name">Weight:</span> <%= pokemon.weight %>
+              hg
             </p>
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Height:</span> <%= pokemon.height
-              %> dm
+              <span class="character-name">Height:</span> <%= pokemon.height %>
+              dm
             </p>
           </div>
           <div class="character-box">
@@ -75,7 +75,8 @@
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Gender:</span> <%= genderDescription %>
+              <span class="character-name">Gender:</span> <%= genderDescription
+              %>
             </p>
           </div>
         </section>
@@ -83,39 +84,37 @@
       <article class="middle-info-base">
         <section class="desc-pokemon">
           <h3>Description</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-            aliquid maiores dicta eos, fugit amet nihil odio ex in accusantium
-            voluptatibus doloribus sunt autem natus neque, molestiae ratione.
-            Et, nam!
-          </p>
+          <p><%= description %></p>
         </section>
         <section class="local-pokemon">
           <h3>Locations</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <% if (locations && locations.length > 0) { %>
+          <ul class="location-list">
+            <% locations.forEach(location => { %>
+            <li><%= location %></li>
+            <% }); %>
+          </ul>
+          <% } else { %>
+          <p>No information about the locations of this Pokémon.</p>
+          <% } %>
         </section>
       </article>
       <article class="bottom-info-base">
         <h3>Evolutions</h3>
         <section class="evolutions-pokemon">
-          <div class="first-evolution">
-            <a href="#">
-              <img src="images/pokemon-logo.png" alt="Imagem pokemon" />
-              <p>Nome evolução</p>
-            </a>
+          <% if (Array.isArray(evolutions) && evolutions.length > 0) { %> <%
+          evolutions.forEach((evolution) => { %>
+          <div class="evolution-item">
+            <img
+              src="<%= evolution.sprite %>"
+              alt="<%= evolution.name %>"
+              class="evolution-sprite"
+            />
+            <p class="evolution-name"><%= evolution.name %></p>
           </div>
-          <div class="second-evolution">
-            <a href="#">
-              <img src="images/pokemon-logo.png" alt="Imagem pokemon" />
-              <p>Nome evolução</p>
-            </a>
-          </div>
-          <div class="third-evolution">
-            <a href="#">
-              <img src="images/pokemon-logo.png" alt="Imagem pokemon" />
-              <p>Nome evolução</p>
-            </a>
-          </div>
+          <% }) %> <% } else { %>
+          <p>No evolutions available for this Pokémon.</p>
+          <% } %>
         </section>
       </article>
     </main>

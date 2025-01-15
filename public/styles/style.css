@@ -145,6 +145,7 @@ main {
 
 .img-pokemon {
   width: 250px;
+  height: auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
   padding: 15px;
   border-radius: 15px;
@@ -181,7 +182,7 @@ main {
     flex-direction: row;
   }
   .img-pokemon {
-    width: 250px;
+    width: auto;
   }
 }
 
@@ -192,14 +193,16 @@ main {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: 100%;
+  max-width: 750px;
 }
 
 .desc-pokemon {
   padding: 7px;
   border: 1px solid var(--bg-default);
   border-radius: 12px;
-  width: 100%;
   box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.548);
+  width: 100%;
   max-width: 750px;
 }
 
@@ -207,9 +210,26 @@ main {
   padding: 7px;
   border: 1px solid var(--bg-default);
   border-radius: 12px;
-  width: 100%;
   box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.548);
+  width: 100%;
   max-width: 750px;
+}
+
+.location-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.location-list li {
+  border-bottom: 1px solid var(--bg-logo);
+}
+
+.location-list li::marker {
+  color: var(--bg-logo);
+  text-align: center;
 }
 
 h3 {
@@ -240,7 +260,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .evolutions-pokemon a {
@@ -254,7 +274,7 @@ h3 {
   padding: 15px;
   border-radius: 15px;
   transition: transform 0.3s ease;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .evolutions-pokemon img:hover {
