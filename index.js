@@ -6,11 +6,19 @@ const port = 3000;
 
 app.use(express.static("public"));
 
+let pokeID;
+
+app.use((req, res, next) => {
+  if (!pokeID) {
+    pokeID = Math.floor(Math.random() * 1025) + 1;
+  }
+  next();
+});
+
 app.get("/", async (req, res) => {
-  const randomID = Math.floor(Math.random() * 1025) + 1;
-  const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${randomID}/`;
-  const speciesURL = `https://pokeapi.co/api/v2/pokemon-species/${randomID}/`;
-  const locationsURL = `https://pokeapi.co/api/v2/pokemon/${randomID}/encounters`;
+  const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/`;
+  const speciesURL = `https://pokeapi.co/api/v2/pokemon-species/${pokeID}/`;
+  const locationsURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/encounters`;
 
   try {
     const [pokemonResponse, speciesResponse, locationsResponse] =
@@ -59,6 +67,20 @@ app.get("/", async (req, res) => {
       description,
       evolutions,
     });
+  } catch (err) {
+    console.error("Erro ao buscar dados da API:", err);
+    res.status(500).send("Erro ao buscar dados do Pokémon.");
+  }
+});
+
+app.get("/findPokemon", async (req, res) => {
+  const pokeName = req.query.pokemonName;
+  try {
+    const result = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
+    );
+    pokeID = result.data.id;
+    res.redirect("/");
   } catch (err) {
     console.error("Erro ao buscar dados da API:", err);
     res.status(500).send("Erro ao buscar dados do Pokémon.");
