@@ -91,6 +91,15 @@ header > div {
   cursor: pointer;
 }
 
+.back-random-pokemon {
+  text-decoration: none;
+  color: var(--bg-logo);
+}
+
+.return-icon {
+  font-size: 1.5rem;
+}
+
 @media (max-width: 500px) {
   header > div {
     flex-direction: column;

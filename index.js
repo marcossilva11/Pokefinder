@@ -6,16 +6,12 @@ const port = 3000;
 
 app.use(express.static("public"));
 
-let pokeID;
-
-app.use((req, res, next) => {
-  if (!pokeID) {
-    pokeID = Math.floor(Math.random() * 1025) + 1;
-  }
-  next();
-});
-
 app.get("/", async (req, res) => {
+  const pokeIdFromQuery = req.query.pokeID;
+  const pokeID = pokeIdFromQuery
+    ? parseInt(pokeIdFromQuery)
+    : Math.floor(Math.random() * 1025) + 1;
+
   const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/`;
   const speciesURL = `https://pokeapi.co/api/v2/pokemon-species/${pokeID}/`;
   const locationsURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/encounters`;
@@ -66,6 +62,7 @@ app.get("/", async (req, res) => {
       locations,
       description,
       evolutions,
+      pokeIdFromQuery,
     });
   } catch (err) {
     console.error("Erro ao buscar dados da API:", err);
@@ -79,12 +76,21 @@ app.get("/findPokemon", async (req, res) => {
     const result = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
     );
-    pokeID = result.data.id;
-    res.redirect("/");
+    const pokeID = result.data.id;
+    res.redirect(`/?pokeID=${pokeID}`);
   } catch (err) {
     console.error("Erro ao buscar dados da API:", err);
     res.status(500).send("Erro ao buscar dados do Pokémon.");
   }
+});
+
+app.get("evolutionPoke", (req, res) => {
+  const pokeID = req.query.pokeID;
+  if (!pokeID) {
+    return res.status(400).send("ID do Pokémon não fornecido.");
+  }
+  console.log(`Novo pokeID recebido: ${req.params.id}`);
+  res.redirect("/");
 });
 
 function getGenderDescription(genderRate) {
@@ -112,6 +118,7 @@ async function getEvolutionsWithSprites(chain) {
 
     evolutions.push({
       name: speciesName,
+      id: speciesID,
       sprite,
     });
 

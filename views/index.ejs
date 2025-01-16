@@ -37,6 +37,11 @@
             </button>
           </form>
         </div>
+        <% if (pokeIdFromQuery) { %>
+        <a href="/" class="back-random-pokemon">
+          <i class="bi bi-box-arrow-left return-icon"></i>
+        </a>
+        <% } %>
       </div>
     </header>
     <main>
@@ -52,8 +57,7 @@
         <section class="poke-character">
           <div class="character-box">
             <p>
-              <span class="character-name">Nº Pokédex:</span> <%= pokemon.order
-              %>
+              <span class="character-name">Nº Pokédex:</span> <%= pokemon.order %>
             </p>
           </div>
           <div class="character-box">
@@ -63,14 +67,12 @@
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Weight:</span> <%= pokemon.weight %>
-              hg
+              <span class="character-name">Weight:</span> <%= pokemon.weight %> hg
             </p>
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Height:</span> <%= pokemon.height %>
-              dm
+              <span class="character-name">Height:</span> <%= pokemon.height %> dm
             </p>
           </div>
           <div class="character-box">
@@ -80,8 +82,7 @@
           </div>
           <div class="character-box">
             <p>
-              <span class="character-name">Gender:</span> <%= genderDescription
-              %>
+              <span class="character-name">Gender:</span> <%= genderDescription %>
             </p>
           </div>
         </section>
@@ -94,31 +95,34 @@
         <section class="local-pokemon">
           <h3>Locations</h3>
           <% if (locations && locations.length > 0) { %>
-          <ul class="location-list">
-            <% locations.forEach(location => { %>
-            <li><%= location %></li>
-            <% }); %>
-          </ul>
+            <ul class="location-list">
+              <% locations.forEach(location => { %>
+                <li><%= location %></li>
+              <% }); %>
+            </ul>
           <% } else { %>
-          <p>No information about the locations of this Pokémon.</p>
+            <p>No information about the locations of this Pokémon.</p>
           <% } %>
         </section>
       </article>
       <article class="bottom-info-base">
         <h3>Evolutions</h3>
         <section class="evolutions-pokemon">
-          <% if (Array.isArray(evolutions) && evolutions.length > 0) { %> <%
-          evolutions.forEach((evolution) => { %>
-          <div class="evolution-item">
-            <img
-              src="<%= evolution.sprite %>"
-              alt="<%= evolution.name %>"
-              class="evolution-sprite"
-            />
-            <p class="evolution-name"><%= evolution.name %></p>
-          </div>
-          <% }) %> <% } else { %>
-          <p>No evolutions available for this Pokémon.</p>
+          <% if (Array.isArray(evolutions) && evolutions.length > 0) { %>
+            <% evolutions.forEach((evolution) => { %>
+              <div class="evolution-item">
+                <a href="/?pokeID=<%= evolution.id %>">
+                  <img
+                    src="<%= evolution.sprite %>"
+                    alt="<%= evolution.name %>"
+                    class="evolution-sprite"
+                  />
+                  <p class="evolution-name"><%= evolution.name %></p>
+                </a>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p>No evolutions available for this Pokémon.</p>
           <% } %>
         </section>
       </article>
