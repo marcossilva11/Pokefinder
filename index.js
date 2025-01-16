@@ -6,17 +6,21 @@ const port = 3000;
 
 app.use(express.static("public"));
 
+// Main Route
 app.get("/", async (req, res) => {
+  // Verify if the user searched for a pokemon
   const pokeIdFromQuery = req.query.pokeID;
   const pokeID = pokeIdFromQuery
     ? parseInt(pokeIdFromQuery)
     : Math.floor(Math.random() * 1025) + 1;
 
+  // Set API URLs
   const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/`;
   const speciesURL = `https://pokeapi.co/api/v2/pokemon-species/${pokeID}/`;
   const locationsURL = `https://pokeapi.co/api/v2/pokemon/${pokeID}/encounters`;
 
   try {
+    // Axios request
     const [pokemonResponse, speciesResponse, locationsResponse] =
       await Promise.all([
         axios.get(pokemonURL),
@@ -24,19 +28,24 @@ app.get("/", async (req, res) => {
         axios.get(locationsURL),
       ]);
 
+    // Response data
     const pokemonData = pokemonResponse.data;
     const speciesData = speciesResponse.data;
     const locationsData = locationsResponse.data;
 
+    // Pokemon type
     const type = pokemonData.types.map((item) => item.type.name).join(", ");
     const typeLabel = pokemonData.types.length === 1 ? "Type" : "Types";
 
+    // Pokemon abilities
     const abilities = pokemonData.abilities
       .map((item) => item.ability.name)
       .join(", ");
 
+    // Pokemon gender
     const genderDescription = getGenderDescription(speciesData.gender_rate);
 
+    // Pokemon description
     const descriptionEntry = speciesData.flavor_text_entries.find(
       (entry) => entry.language.name === "en"
     );
@@ -44,8 +53,10 @@ app.get("/", async (req, res) => {
       ? descriptionEntry.flavor_text
       : "Description not available in English.";
 
+    // Pokemon locations
     const locations = locationsData.map((item) => item.location_area.name);
 
+    // Pokemon chain evolution
     const evolutionChainURL = speciesData.evolution_chain.url;
 
     const evolutionChainResponse = await axios.get(evolutionChainURL);
@@ -65,34 +76,33 @@ app.get("/", async (req, res) => {
       pokeIdFromQuery,
     });
   } catch (err) {
-    console.error("Erro ao buscar dados da API:", err);
-    res.status(500).send("Erro ao buscar dados do Pokémon.");
+    res.status(500).send("Failed to fetch Pokemon data.");
   }
 });
 
+// Search pokemon route
 app.get("/findPokemon", async (req, res) => {
-  const pokeName = req.query.pokemonName;
+  // Get pokemon name to retrieve its ID
+  const pokeName = req.query.pokemonName.toLowerCase();
   try {
     const result = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
     );
+    // Redirect to main route with the pokeID
     const pokeID = result.data.id;
     res.redirect(`/?pokeID=${pokeID}`);
   } catch (err) {
-    console.error("Erro ao buscar dados da API:", err);
-    res.status(500).send("Erro ao buscar dados do Pokémon.");
+    res.status(404).send("Pokémon not found. Please enter a valid name.");
   }
 });
 
+// Evolutions pokemon route
 app.get("evolutionPoke", (req, res) => {
   const pokeID = req.query.pokeID;
-  if (!pokeID) {
-    return res.status(400).send("ID do Pokémon não fornecido.");
-  }
-  console.log(`Novo pokeID recebido: ${req.params.id}`);
   res.redirect("/");
 });
 
+// Function to get the gender of the pokemon
 function getGenderDescription(genderRate) {
   if (genderRate === -1) {
     return "genderless";
@@ -105,23 +115,30 @@ function getGenderDescription(genderRate) {
   }
 }
 
+// Function to get pokemon evolutions with their sprites
 async function getEvolutionsWithSprites(chain) {
   const evolutions = [];
 
+  // Recursive function to traverse the evolution chain
   async function traverse(chain) {
+    // Extract species name and URL
     const speciesName = chain.species.name;
     const speciesUrl = chain.species.url;
 
+    // Make a request with the new URL to get the species data
     const speciesResponse = await axios.get(speciesUrl);
     const speciesID = speciesResponse.data.id;
+    // Construct the sprite URL
     const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${speciesID}.png`;
 
+    // Add the evolution data to the array
     evolutions.push({
       name: speciesName,
       id: speciesID,
       sprite,
     });
 
+    // Recursively process the next evolutions
     for (const evolution of chain.evolves_to) {
       await traverse(evolution);
     }
@@ -131,6 +148,7 @@ async function getEvolutionsWithSprites(chain) {
   return evolutions;
 }
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
